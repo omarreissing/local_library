@@ -1,0 +1,38 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+    <h1>Detalle Autor</h1>
+
+    <p><strong> Apellido: </strong> {{ author.last_name }}</p>
+    <p><strong> Nombre:   </strong> {{ author.first_name }}</p>
+    <p><strong> Nacimiento:</strong> {{ author.date_of_birth }}</p>
+
+
+   <div style="margin-left:20px; margin-top:20px">
+        <h4>Libros </h4>
+
+        {% for libro in author.book_set.all %}
+            <hr>
+            <p> <strong>Titulo: </strong> {{ libro.title}} </p>
+            <p> <strong>Resumen:</strong> {{ libro.summary }}</p>
+
+            <p class="{% if copy.status == 'a' %} text-success {% elif copy.status == 'm' %}text-danger{% else %}text-warning{% endif %}">
+               {{ copy.get_status_display }}</p>
+            {% if copy.status != 'a' %}<p><strong>Due to be returned:</strong> {{copy.due_back}}</p>{% endif %}
+            <p><strong>Imprint:</strong> {{copy.imprint}}</p>
+            <p class="text-muted"><strong>Id:</strong> {{copy.id}}</p>
+
+            <p class="{% if copy.status == 'a' %} text-success {% elif copy.status == 'm' %}text-danger{% else %}text-warning{% endif %}">
+               {{ copy.get_status_display }}</p>
+            {% if copy.status != 'a' %}<p><strong>Due to be returned:</strong> {{copy.due_back}}</p>{% endif %}
+            <p><strong>Imprint:</strong> {{copy.imprint}}</p>
+            <p class="text-muted"><strong>Id:</strong> {{copy.id}}</p>
+
+        {% endfor %}
+
+    </div>
+
+{% endblock %}
+
+
+<!--    <p><strong> Genre: </strong> {% for genre in book.genre.all %} {{genre}} {% if not forloop.last %} , {% endif %} {% endfor %} </p>-->
